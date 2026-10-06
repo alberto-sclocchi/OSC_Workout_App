@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-do
 import './App.css';
 import Login from './Components/Login';
 import Signup from './Components/Signup';
+import Session from './Components/Session';
 import Home from './Pages/Home';
 
 function App() {
@@ -24,6 +25,11 @@ function App() {
           >
             Signup
           </NavLink>
+          <NavLink 
+            to="/session" 
+          >
+            Session
+          </NavLink>
         </nav>
 
         <div>
@@ -32,6 +38,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/session" element={<Session />} />
           </Routes>
         </div>
       </div>
