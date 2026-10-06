@@ -10,21 +10,16 @@ function formatTime(ms) {
   return minutes + ':' + String(seconds).padStart(2, '0');
 }
 
-// Short beep and vibration when the rest is over. Does nothing if the browser doesn't support it.
-function playAlert() {
-  try {
-    const audio = new AudioContext();
-    const beep = audio.createOscillator();
-    beep.connect(audio.destination);
-    beep.frequency.value = 880;
-    beep.start();
-    beep.stop(audio.currentTime + 0.10);
-  } catch (error) {
-    console.error('AudioContext not supported', error);
-  }
+// Plays when the rest is over.
+// If a sound file was given, play it. Otherwise play three short beeps.
+function playAlert(alertSound) {
+    // play the costum alert sound
+    new Audio(alertSound).play().catch((error) => {
+      console.error('Could not play alert sound', error);
+    });
 }
 
-export default function Timer({ initialSeconds = 60 }) {
+export default function Timer({ initialSeconds = 60, alertSound }) {
   const [durationSeconds, setDurationSeconds] = useState(initialSeconds);
   const [remainingMs, setRemainingMs] = useState(initialSeconds * 1000);
   const [isRunning, setIsRunning] = useState(false);
@@ -48,12 +43,12 @@ export default function Timer({ initialSeconds = 60 }) {
         clearInterval(intervalId);
         setIsRunning(false);
         setIsComplete(true);
-        playAlert(); // play sound
+        playAlert(alertSound); // play sound
       }
     }, 250);
 
     return () => clearInterval(intervalId);
-  }, [isRunning]);
+  }, [isRunning, alertSound]);
 
   function handleStart() {
     // if remainingMs is over zero just restart from remaining 

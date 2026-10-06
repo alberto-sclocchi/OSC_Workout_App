@@ -2,12 +2,14 @@
 
 import React from 'react'
 import Timer from './Timer'
+// import costume alert sound for the timer
+import alertSound from '../Audio/alarm_audio.wav'
 
 export default function Session() {
   return (
     <div>
         <h1>Session</h1>
-        <Timer />
+        <Timer alertSound={alertSound} />
     </div>
   )
 }
