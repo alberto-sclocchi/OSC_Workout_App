@@ -36,3 +36,91 @@
     transform: rotate(360deg);
   }
 }
+
+/* Timer CSS */
+
+.timer {
+  max-width: 360px;
+  margin: 24px auto;
+  padding: 32px 24px;
+  border: 1px solid #e5e5e5;
+  border-radius: 16px;
+}
+
+.timer-display {
+  font-size: 5rem;
+  font-weight: 300;
+  /* every digit is the same width, so the numbers don't jiggle while counting */
+  font-variant-numeric: tabular-nums;
+}
+
+.timer-done {
+  color: #2e7d32;
+}
+
+/* keeps its height even when empty, so the layout doesn't jump */
+.timer-status {
+  min-height: 1.5em;
+  margin: 0 0 16px;
+  color: #2e7d32;
+  font-weight: 600;
+}
+
+.timer-controls,
+.timer-presets,
+.timer-custom {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.btn {
+  padding: 8px 16px;
+  font-size: 1rem;
+  background: #fff;
+  color: #111;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn:hover:not(:disabled) {
+  border-color: #111;
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  min-width: 96px;
+  background: #111;
+  color: #fff;
+  border-color: #111;
+}
+
+.btn-preset {
+  border-radius: 999px;
+  font-size: 0.9rem;
+}
+
+.btn-preset.selected {
+  background: #f0f0f0;
+  border-color: #111;
+}
+
+.timer-custom label {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.timer-custom input {
+  width: 72px;
+  padding: 8px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}

@@ -103,33 +103,40 @@ export default function Timer({ initialSeconds = 60, alertSound }) {
   }
 
   return (
-    <div style={{ textAlign: 'center' }}>
-      <div role="timer" style={{ fontSize: '4rem', fontWeight: 'bold' }}>
+    <section className="timer">
+      <div role="timer" className={isComplete ? 'timer-display timer-done' : 'timer-display'}>
         {formatTime(remainingMs)}
       </div>
 
-      {isComplete && <p role="status">Time is up!</p>}
+      <p role="status" className="timer-status">
+        {isComplete ? 'Time is up!' : ''}
+      </p>
 
-      <div>
+      <div className="timer-controls">
         {isRunning ? (
-          <button onClick={handlePause}>Pause</button>
+          <button className="btn btn-primary" onClick={handlePause}>Pause</button>
         ) : (
-          <button onClick={handleStart}>Start</button>
+          <button className="btn btn-primary" onClick={handleStart}>Start</button>
         )}
-        <button onClick={handleReset}>Reset</button>
-        <button onClick={handleAddThirty}>+30s</button>
+        <button className="btn" onClick={handleReset}>Reset</button>
+        <button className="btn" onClick={handleAddThirty}>+30s</button>
       </div>
 
-      <div>
+      <div className="timer-presets">
         {PRESETS.map((seconds) => (
-          <button key={seconds} onClick={() => chooseDuration(seconds)} disabled={isRunning}>
+          <button
+            key={seconds}
+            className={seconds === durationSeconds ? 'btn btn-preset selected' : 'btn btn-preset'}
+            onClick={() => chooseDuration(seconds)}
+            disabled={isRunning}
+          >
             {seconds}s
           </button>
         ))}
       </div>
 
-      <form onSubmit={handleCustomSubmit}>
-        <label htmlFor="custom-seconds">Custom seconds: </label>
+      <form className="timer-custom" onSubmit={handleCustomSubmit}>
+        <label htmlFor="custom-seconds">Custom seconds</label>
         <input
           id="custom-seconds"
           type="number"
@@ -138,8 +145,8 @@ export default function Timer({ initialSeconds = 60, alertSound }) {
           onChange={(event) => setCustomSeconds(event.target.value)}
           disabled={isRunning}
         />
-        <button type="submit" disabled={isRunning}>Set</button>
+        <button className="btn" type="submit" disabled={isRunning}>Set</button>
       </form>
-    </div>
+    </section>
   );
 }
