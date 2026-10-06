@@ -11,7 +11,7 @@ function formatTime(ms) {
 }
 
 // Plays when the rest is over.
-// If a sound file was given, play it. Otherwise play three short beeps.
+// If a sound file was given, play it.
 function playAlert(alertSound) {
     // play the costum alert sound
     new Audio(alertSound).play().catch((error) => {
@@ -19,7 +19,7 @@ function playAlert(alertSound) {
     });
 }
 
-export default function Timer({ initialSeconds = 60, alertSound }) {
+export default function Timer({ initialSeconds = 60, alertSound, onComplete }) {
   const [durationSeconds, setDurationSeconds] = useState(initialSeconds);
   const [remainingMs, setRemainingMs] = useState(initialSeconds * 1000);
   const [isRunning, setIsRunning] = useState(false);
@@ -44,11 +44,13 @@ export default function Timer({ initialSeconds = 60, alertSound }) {
         setIsRunning(false);
         setIsComplete(true);
         playAlert(alertSound); // play sound
+        // let the parent component know the rest is over (optional)
+        if (onComplete) onComplete();
       }
     }, 250);
 
     return () => clearInterval(intervalId);
-  }, [isRunning, alertSound]);
+  }, [isRunning, alertSound, onComplete]);
 
   function handleStart() {
     // if remainingMs is over zero just restart from remaining 

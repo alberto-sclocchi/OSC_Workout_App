@@ -107,7 +107,7 @@
   font-size: 0.9rem;
 }
 
-.btn-preset.selected {
+.selected {
   background: #f0f0f0;
   border-color: #111;
 }
